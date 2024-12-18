@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padelcourt Fördercheck</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #0056b3;
+        }
+        p {
+            text-align: center;
+            margin: 10px 0 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            margin: 20px 0;
+        }
+        select, button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            max-width: 400px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        .checkbox-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+        .hidden {
+            display: none;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #e9f7ef;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        .button {
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #003f7f;
+        }
+        .progress {
+            width: 100%;
+            background-color: #f4f4f9;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            width: 0;
+            height: 20px;
+            background-color: #0056b3;
+            border-radius: 5px;
+            text-align: center;
+            color: white;
+            line-height: 20px;
+            font-size: 12px;
+            transition: width 0.4s ease;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Padelcourt Fördercheck</h1>
+    <p>Finden Sie heraus, welche Förderprogramme für den Bau oder die Modernisierung Ihres Padelcourts verfügbar sind.</p>
+
+    <!-- Fortschrittsanzeige -->
+    <div class="progress">
+        <div class="progress-bar" id="progressBar">0%</div>
+    </div>
+
+    <div id="questionnaire">
+        <!-- Frage 1 -->
+        <div class="question" id="q1">
+            <label for="entityType">1. Wer sind Sie?</label>
+            <select id="entityType">
+                <option value="">Bitte auswählen</option>
+                <option value="Verein">Verein</option>
+                <option value="Kommune">Kommune</option>
+                <option value="Privatunternehmen">Privatunternehmen</option>
+            </select>
+        </div>
+
+        <!-- Frage 2 -->
+        <div class="question hidden" id="q2">
+            <label for="state">2. In welchem Bundesland soll der Padelcourt gebaut werden?</label>
+            <select id="state">
+                <option value="">Bitte auswählen</option>
+                <option value="Baden-Württemberg">Baden-Württemberg</option>
+                <option value="Bayern">Bayern</option>
+                <option value="Berlin">Berlin</option>
+                <option value="Brandenburg">Brandenburg</option>
+                <option value="Bremen">Bremen</option>
+                <option value="Hamburg">Hamburg</option>
+                <option value="Hessen">Hessen</option>
+                <option value="Mecklenburg-Vorpommern">Mecklenburg-Vorpommern</option>
+                <option value="Niedersachsen">Niedersachsen</option>
+                <option value="Nordrhein-Westfalen">Nordrhein-Westfalen</option>
+                <option value="Rheinland-Pfalz">Rheinland-Pfalz</option>
+                <option value="Saarland">Saarland</option>
+                <option value="Sachsen">Sachsen</option>
+                <option value="Sachsen-Anhalt">Sachsen-Anhalt</option>
+                <option value="Schleswig-Holstein">Schleswig-Holstein</option>
+                <option value="Thüringen">Thüringen</option>
+            </select>
+        </div>
+
+        <!-- Frage 3 -->
+        <div class="question hidden" id="q3">
+            <label for="projectType">3. Worum handelt es sich bei Ihrem Projekt?</label>
+            <select id="projectType">
+                <option value="">Bitte auswählen</option>
+                <option value="Neuerrichtung">Neuerrichtung</option>
+                <option value="Modernisierung">Modernisierung</option>
+                <option value="Sanierung">Sanierung</option>
+            </select>
+        </div>
+
+        <!-- Frage 4 -->
+        <div class="question hidden" id="q4">
+            <label>4. Welche Ziele verfolgen Sie mit Ihrem Projekt? (Mehrfachauswahl möglich)</label>
+            <div class="checkbox-container">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="goal1" value="Breitensport">
+                    Förderung des Breitensports
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="goal2" value="Jugendförderung">
+                    Förderung der Jugend
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="goal3" value="Klimafreundlich">
+                    Energieeffiziente und klimafreundliche Gestaltung
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="goal4" value="Tourismus">
+                    Förderung des lokalen Tourismus
+                </label>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="goal5" value="Inklusion">
+                    Barrierefreie Gestaltung
+                </label>
+            </div>
+            <button id="nextButtonQ4" class="button hidden">Weiter</button>
+        </div>
+
+        <!-- Frage 5 -->
+        <div class="question hidden" id="q5">
+            <label>5. Gibt es bereits eine Konzept- oder Kostenplanung?</label>
+            <select id="hasPlan">
+                <option value="">Bitte auswählen</option>
+                <option value="Ja">Ja</option>
+                <option value="Nein">Nein</option>
+            </select>
+        </div>
+
+        <!-- Button zum Anzeigen der Ergebnisse -->
+        <button id="submitButton" class="hidden button">Ergebnisse anzeigen</button>
+    </div>
+
+    <!-- Ergebnisse -->
+    <div id="result" class="result hidden">
+        <h2>Ergebnisse</h2>
+        <p id="resultText">Bitte füllen Sie den Fragebogen vollständig aus.</p>
+    </div>
+</div>
+
+<script>
+    const questionnaire = document.getElementById("questionnaire");
+    const nextButtonQ4 = document.getElementById("nextButtonQ4");
+    const submitButton = document.getElementById("submitButton");
+    const result = document.getElementById("result");
+    const resultText = document.getElementById("resultText");
+    const progressBar = document.getElementById("progressBar");
+    let progress = 0;
+    const completedSteps = new Set();
+
+    function updateProgress(stepId) {
+        if (!completedSteps.has(stepId)) {
+            completedSteps.add(stepId);
+            progress += 20;
+            progressBar.style.width = `${progress}%`;
+            progressBar.textContent = `${progress}%`;
+        }
+    }
+
+    questionnaire.addEventListener("change", (event) => {
+        if (event.target.id === "entityType" && event.target.value !== "") {
+            document.getElementById("q2").classList.remove("hidden");
+            updateProgress("entityType");
+        }
+        if (event.target.id === "state" && event.target.value !== "") {
+            document.getElementById("q3").classList.remove("hidden");
+            updateProgress("state");
+        }
+        if (event.target.id === "projectType" && event.target.value !== "") {
+            document.getElementById("q4").classList.remove("hidden");
+            updateProgress("projectType");
+        }
+        if (event.target.id === "hasPlan" && event.target.value !== "") {
+            submitButton.classList.remove("hidden");
+            updateProgress("hasPlan");
+        }
+    });
+
+    document.querySelectorAll("#q4 input[type=checkbox]").forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+            const selectedGoals = Array.from(document.querySelectorAll("#q4 input[type=checkbox]:checked"));
+            if (selectedGoals.length > 0) {
+                nextButtonQ4.classList.remove("hidden");
+            } else {
+                nextButtonQ4.classList.add("hidden");
+            }
+        });
+    });
+
+    nextButtonQ4.addEventListener("click", () => {
+        document.getElementById("q5").classList.remove("hidden");
+        nextButtonQ4.classList.add("hidden");
+        updateProgress("goals");
+    });
+
+    submitButton.addEventListener("click", () => {
+        const state = document.getElementById("state").value;
+        const goals = Array.from(document.querySelectorAll("#q4 input[type=checkbox]:checked")).map(goal => goal.value);
+
+        if (!state || goals.length === 0) {
+            resultText.textContent = "Bitte füllen Sie alle Fragen aus.";
+        } else {
+            let recommendations = `<p>Basierend auf Ihren Antworten empfehlen wir folgende Förderprogramme:</p><ul>`;
+            
+            recommendations += `<li><a href="https://www.sportstaettenbau.de" target="_blank">${state} Sportstättenförderung</a>: Unterstützung für Sportanlagen in Ihrem Bundesland.</li>`;
+            
+            if (goals.includes("Klimafreundlich")) {
+                recommendations += `<li><a href="https://www.klimaschutz.de" target="_blank">Klimaschutz Sportstätten</a>: Förderprogramme für nachhaltige Projekte.</li>`;
+            }
+            
+            if (goals.includes("Breitensport")) {
+                recommendations += `<li><a href="https://www.breitensport-foerderung.de" target="_blank">Breitensportförderung</a>: Fördermöglichkeiten zur Stärkung des Sports in der Breite.</li>`;
+            }
+            
+            recommendations += `</ul>`;
+            resultText.innerHTML = recommendations;
+        }
+        result.classList.remove("hidden");
+    });
+</script>
+
+</body>
+</html>
